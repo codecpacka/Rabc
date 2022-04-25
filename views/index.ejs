@@ -19,8 +19,8 @@
     
     <!-- Style -->
     <link rel="stylesheet" href="css/style.css">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
-    <script src="js/charts.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="js/charts.js" defer></script>
 
     <title>Website Menu #3</title>
   </head>
@@ -81,7 +81,7 @@
         <div class="modal-content">
           <div class="modal-header">
             <!-- <h5 class="modal-title" id="exampleModalLabel">Modal title</h5> -->
-            <iframe src="signup" name="iframe_a" height="100%" width="100%" title="Iframe Example"></iframe>
+            <iframe src="auth/signup" name="iframe_a" height="100%" width="100%" title="Iframe Example"></iframe>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
         </div>
@@ -94,20 +94,50 @@
         <div class="modal-content">
           <div class="modal-header">
             <!-- <h5 class="modal-title" id="exampleModalLabel">Modal title</h5> -->
-            <iframe src="login" name="iframe_a" height="100%" width="100%" title="Iframe Example"></iframe>
+            <iframe src="auth/login" name="iframe_a" height="100%" width="100%" title="Iframe Example"></iframe>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
         </div>
       </div>
     </div>
 
+<style>
+.mainbox{
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+}
 
+</style>
     <!-- modal ends -->
+
+   <div class="calorimeter">
+    <button type="button" class="btn btn-info">Calorimeter</button>
+   </div>
       <!-- ----chart starts----- -->
-    
-      <div>
-        <canvas id="myChart"></canvas>
+    <div class="container mainbox ">
+<!-- /////don't edit this blockk -->
+      <div class="container leftbox" id="chart" >
+        
+        <canvas width="100" height="100" id="myPieChart"></canvas>
+        
       </div>
+<!-- ////////////// -->
+      
+      <div class="rightbox">
+          <div class="row">
+        <div class="form-floating col-8">
+          <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+          <label for="floatingInput">Email address</label>
+        </div>
+        <div class="col-4">
+
+          <button type="button" class="btn btn-success">Search</button>
+        </div>
+
+</div>
+      </div>
+    </div>
+      
 
 
 
