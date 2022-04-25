@@ -5,13 +5,12 @@ router.get("/login", async (req, res, next) => {
 })
 
 router.get("/signup", async (req, res, next) => {
-  res.flash("err", "error")
-  // req.flash("key", "some value")
-
+  req.flash("error", "some error ")
+  req.flash("error", "some error 2 ")
+  req.flash("key", "some value ")
   const messages = req.flash()
   console.log(messages)
-
-  res.render("signup.ejs")
+  res.render("signup.ejs", { messages })
 })
 
 router.get("/logout", async (req, res, next) => {

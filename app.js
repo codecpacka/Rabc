@@ -4,10 +4,11 @@ const morgan = require("morgan")
 const mongoose = require("mongoose")
 const { error } = require("console")
 const { reset } = require("nodemon")
-const session = require("express-session")
-const flash = require("connect-flash")
 require("dotenv").config()
+const session = require("express-session")
+const connectFlash = require("connect-flash")
 
+//initialization
 const app = express()
 app.use(morgan("dev"))
 app.set("view engine", "ejs")
@@ -18,7 +19,20 @@ app.use(
     extended: false,
   })
 )
-app.use(flash())
+///init session
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      // secure:true,
+      httpOnly: true,
+    },
+  })
+)
+
+app.use(connectFlash())
 
 //initial route which will handle "/anyroute"
 app.use("/", require("./routes/index.route"))
