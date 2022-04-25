@@ -1,0 +1,17 @@
+.modal-dialog {
+  height: 90%; /* = 90% of the .modal-backdrop block = %90 of the screen */
+}
+.modal-content {
+  height: 100%; /* = 100% of the .modal-dialog block */
+}
+.modal-header {
+  height: 100%;
+}
+.btn-close {
+  display: flex;
+  align-self: flex-start;
+}
+header {
+  background-color: black;
+  opacity: 70%;
+}
