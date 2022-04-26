@@ -8,8 +8,10 @@ require("dotenv").config()
 const session = require("express-session")
 const connectFlash = require("connect-flash")
 const passport = require("passport")
+const { ensureLoggedIn } = require("connect-ensure-login")
 const mongoStore = require("connect-mongo")
 const path = require("path")
+const { roles } = require("./utils/constants")
 
 //initialization
 const app = express()
@@ -66,8 +68,17 @@ app.use((req, res, next) => {
 //initial route which will handle "/anyroute"
 app.use("/", require("./routes/index.route"))
 app.use("/auth", require("./routes/auth.route"))
-app.use("/admin", require("./routes/admin.route"))
-app.use("/user", ensureAuthenticated, require("./routes/user.route"))
+app.use(
+  "/user",
+  ensureLoggedIn({ redirectTo: "/auth/login" }),
+  require("./routes/user.route")
+)
+app.use(
+  "/admin",
+  ensureLoggedIn({ redirectTo: "/auth/login" }),
+  ensureAdmin,
+  require("./routes/admin.route")
+)
 //if any route is not handeled
 app.use((req, res, next) => {
   next(createHttpError.NotFound())
@@ -112,11 +123,11 @@ mongoose
 
 //port configuration
 const PORT = process.env.PORT || 3000
-
-function ensureAuthenticated(req, res, next) {
-  if (req.isAuthenticated()) {
+function ensureAdmin(req, res, next) {
+  if (req.user.role === roles.admin) {
     next()
   } else {
-    res.redirect("/auth/login")
+    req.flash("warning", "you are not Authorized to see this route")
+    res.redirect("/")
   }
 }

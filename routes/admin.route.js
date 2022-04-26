@@ -1,4 +1,15 @@
+const User = require("../models/user.model")
 const router = require("express").Router()
+
+router.get("/users", async (req, res, next) => {
+  try {
+    const users = await User.find()
+    res.send(users)
+    // res.render("manage-users", { users })
+  } catch (error) {
+    next(error)
+  }
+})
 
 router.get("/main", (req, res, next) => {
   res.render("admin.ejs")
@@ -7,15 +18,5 @@ router.get("/main", (req, res, next) => {
 router.get("/changePassword", (req, res, next) => {
   res.render("changePassword.ejs")
 })
-// router.get("/signup", (req, res, next) => {
-//   res.render("signup.ejs")
-// })
-// router.get("/login", (req, res, next) => {
-//   res.render("login.ejs")
-// })
-
-// router.get("/about", (req, res, next) => {
-//   res.render("about.ejs")
-// })
 
 module.exports = router

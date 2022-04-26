@@ -1,5 +1,6 @@
 const mongoose = require("mongoose")
 const bcrypt = require("bcrypt")
+const { roles } = require("../utils/constants") //importing roles
 const UserSchema = new mongoose.Schema({
   email: {
     type: String,
@@ -11,6 +12,11 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  role: {
+    type: String,
+    enum: [roles.admin, roles.moderator, roles.client],
+    default: roles.client,
+  },
 })
 //this runs whenever someone saves a document
 UserSchema.pre("save", async function (next) {
@@ -19,6 +25,9 @@ UserSchema.pre("save", async function (next) {
       const salt = await bcrypt.genSalt(10)
       const hashedPassword = await bcrypt.hash(this.password, salt)
       this.password = hashedPassword
+      if (this.email === process.env.ADMIN_EMAIL.toLowerCase()) {
+        this.role = roles.admin
+      }
     }
     next()
   } catch (error) {
