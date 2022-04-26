@@ -9,9 +9,18 @@ const session = require("express-session")
 const connectFlash = require("connect-flash")
 const passport = require("passport")
 const mongoStore = require("connect-mongo")
+const path = require("path")
 
 //initialization
 const app = express()
+// note: the above line should always be first
+
+app.set("views", [
+  path.join(__dirname, "views"),
+  path.join(__dirname, "views/layouts/adminSubLayouts/"),
+  path.join(__dirname, "views/layouts/"),
+])
+
 app.use(morgan("dev"))
 app.set("view engine", "ejs")
 app.use(express.static("public"))

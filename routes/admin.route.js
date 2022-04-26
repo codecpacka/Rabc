@@ -3,6 +3,10 @@ const router = require("express").Router()
 router.get("/main", (req, res, next) => {
   res.render("admin.ejs")
 })
+//changePassword
+router.get("/changePassword", (req, res, next) => {
+  res.render("changePassword.ejs")
+})
 // router.get("/signup", (req, res, next) => {
 //   res.render("signup.ejs")
 // })
