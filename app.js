@@ -57,6 +57,7 @@ app.use((req, res, next) => {
 //initial route which will handle "/anyroute"
 app.use("/", require("./routes/index.route"))
 app.use("/auth", require("./routes/auth.route"))
+app.use("/admin", require("./routes/admin.route"))
 app.use("/user", ensureAuthenticated, require("./routes/user.route"))
 //if any route is not handeled
 app.use((req, res, next) => {
