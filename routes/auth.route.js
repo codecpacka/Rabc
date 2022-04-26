@@ -3,11 +3,11 @@ const User = require("../models/user.model")
 const { body, validationResult } = require("express-validator")
 const passport = require("passport")
 
-router.get("/login", async (req, res, next) => {
+router.get("/login", ensureNOTAuthenticated, async (req, res, next) => {
   res.render("login.ejs")
 })
 
-router.get("/signup", async (req, res, next) => {
+router.get("/signup", ensureNOTAuthenticated, async (req, res, next) => {
   req.flash("error", "some error ")
   req.flash("error", "some error 2 ")
   req.flash("info", "some value ")
@@ -17,7 +17,7 @@ router.get("/signup", async (req, res, next) => {
   res.render("signup.ejs")
 })
 ///fix error in routing logout
-router.get("/logout", async (req, res, next) => {
+router.get("/logout", ensureAuthenticated, async (req, res, next) => {
   req.logout()
   res.redirect("/")
 })
@@ -25,6 +25,7 @@ router.get("/logout", async (req, res, next) => {
 
 router.post(
   "/login",
+  ensureNOTAuthenticated,
   passport.authenticate("local", {
     successRedirect: "/user/profile",
     failureRedirect: "/auth/login",
@@ -35,6 +36,7 @@ router.post(
 
 router.post(
   "/signup",
+  ensureNOTAuthenticated,
   [
     body("email")
       .trim()
@@ -84,6 +86,7 @@ router.post(
 
 router.post(
   "/login",
+  ensureNOTAuthenticated,
   passport.authenticate("local", {
     // successRedirect: '/',
     successReturnToOrRedirect: "/user/profile",
@@ -92,5 +95,21 @@ router.post(
   })
 )
 ////
+
+function ensureAuthenticated(req, res, next) {
+  if (req.isAuthenticated()) {
+    next()
+  } else {
+    res.redirect("/auth/login")
+  }
+}
+
+function ensureNOTAuthenticated(req, res, next) {
+  if (req.isAuthenticated()) {
+    res.redirect("back")
+  } else {
+    next()
+  }
+}
 
 module.exports = router

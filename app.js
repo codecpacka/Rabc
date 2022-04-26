@@ -8,6 +8,8 @@ require("dotenv").config()
 const session = require("express-session")
 const connectFlash = require("connect-flash")
 const passport = require("passport")
+const mongoStore = require("connect-mongo")
+
 //initialization
 const app = express()
 app.use(morgan("dev"))
@@ -19,6 +21,7 @@ app.use(
     extended: false,
   })
 )
+
 ///init session
 app.use(
   session({
@@ -29,6 +32,9 @@ app.use(
       // secure:true,
       httpOnly: true,
     },
+    store: mongoStore.create({
+      mongoUrl: process.env.MONGO_URI,
+    }),
   })
 )
 //for passport js authenticaton
@@ -51,7 +57,7 @@ app.use((req, res, next) => {
 //initial route which will handle "/anyroute"
 app.use("/", require("./routes/index.route"))
 app.use("/auth", require("./routes/auth.route"))
-app.use("/user", require("./routes/user.route"))
+app.use("/user", ensureAuthenticated, require("./routes/user.route"))
 //if any route is not handeled
 app.use((req, res, next) => {
   next(createHttpError.NotFound())
@@ -96,3 +102,11 @@ mongoose
 
 //port configuration
 const PORT = process.env.PORT || 3000
+
+function ensureAuthenticated(req, res, next) {
+  if (req.isAuthenticated()) {
+    next()
+  } else {
+    res.redirect("/auth/login")
+  }
+}
