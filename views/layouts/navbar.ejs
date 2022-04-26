@@ -10,18 +10,39 @@
           <nav class="site-navigation position-relative text-right" role="navigation">
 
             <ul class="site-menu js-clone-nav mr-auto d-none d-lg-block justify-content-end">
-              <li class="active"><a href="index.html"><span>Home</span></a></li>
+              <li class="active"><a href="/"><span>Home</span></a></li>
+              <% if (user) { %>
+              
+                  <li><a href="user/profile"><span>Profile</span></a></li>
+                  <li><a href="auth/logout"><span>logout</span></a></li>
+                  <li><a href=""><span>manage doctors</span></a></li>
+                  <% } else { %>
+
               <li><a href="listings.html"><span>Use Calorimeter</span></a></li>
               <li><a href="/about"><span>About-us</span></a></li>
               <li><a href="contact.html"><span>Contact</span></a></li>
               <li><a href="auth/signup"><span>Sign-up</span></a></li>
+              <li>
+                <a href="auth/login">
+
+                  <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#login ">Login</button>
+                </a>
+                </li>
+              <% } %>
               <!-- <li> -->
                 <!-- <span>  -->
                 <!-- <button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#signup">Sign-up</button></span> -->
               
-              </li>
-              <li><button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#login ">Login</button></li>
-             
+              <!-- </li> -->
+          
+              <!-- <li>
+                <a href="/logout">
+
+                  <button type="button" class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#login ">Logout</button>
+                </a>
+                </li> -->
+               
+                  
             </ul>
           </nav>
         </div>

@@ -7,7 +7,7 @@ const { reset } = require("nodemon")
 require("dotenv").config()
 const session = require("express-session")
 const connectFlash = require("connect-flash")
-
+const passport = require("passport")
 //initialization
 const app = express()
 app.use(morgan("dev"))
@@ -31,8 +31,22 @@ app.use(
     },
   })
 )
+//for passport js authenticaton
+app.use(passport.initialize())
+app.use(passport.session())
+require("./utils/passport.auth")
+
+app.use((req, res, next) => {
+  res.locals.user = req.user
+  next()
+})
 
 app.use(connectFlash())
+
+app.use((req, res, next) => {
+  res.locals.messages = req.flash()
+  next()
+})
 
 //initial route which will handle "/anyroute"
 app.use("/", require("./routes/index.route"))
