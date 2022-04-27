@@ -1,52 +1,55 @@
 // const axios = require("axios")
 console.log("this is chart js ")
-// <----all chart js code is below---->
-//setup file
-const searchBox = Array.from(document.getElementsByClassName("searchBox"))
-const fooItem = searchBox[0].value
-const Btn = Array.from(document.getElementsByClassName("searchBtn"))
-// const searchBtn = Btn[0]
-let testNode = document.querySelector(".searchBtn")
-console.log(typeof testNode)
-// console.log(searchBtn)
-
 const DATA_COUNT = 3
 const NUMBER_CFG = { count: DATA_COUNT, min: 0, max: 100 }
 
-const data = {
-  labels: ["Protein", "fat", "carbs"],
-  datasets: [
-    {
-      label: "Dataset 1",
-      data: [3, 4, 6],
-      backgroundColor: [
-        "rgb(255, 99, 132)",
-        "rgb(54, 162, 235)",
-        "rgb(255, 205, 86)",
-      ],
-    },
-  ],
-}
-//config file
-const config = {
-  type: "doughnut",
-  data: data,
-  options: {
-    responsive: true,
-    plugins: {
-      legend: {
-        position: "top",
-      },
-      title: {
-        display: true,
-        text: "Chart.js Doughnut Chart",
-      },
-    },
-  },
-}
+const searchbox = document.querySelector("#floating-input")
 
-const myChart = new Chart(document.getElementById("myPieChart"), config) //for index
-// const myChart = new Chart(document.getElementById("myArea"), config)
+const searchBtn = document.querySelector("#search-btn")
+let template = document.querySelector("#list-item-template")
+const output = document.querySelector(".output")
+// console.log(box)
+console.log(searchbox)
+console.log(searchBtn)
+
+getCaloriesChart("myPieChart")
+
+function getCaloriesChart(element) {
+  const data = {
+    labels: ["Protein", "fat", "carbs"],
+    datasets: [
+      {
+        label: "Dataset 1",
+        data: [3, 4, 6],
+        backgroundColor: [
+          "rgb(255, 99, 132)",
+          "rgb(54, 162, 235)",
+          "rgb(255, 205, 86)",
+        ],
+      },
+    ],
+  }
+  //config file
+  const config = {
+    type: "doughnut",
+    data: data,
+    options: {
+      responsive: true,
+      plugins: {
+        legend: {
+          position: "top",
+        },
+        title: {
+          display: true,
+          text: "Chart.js Doughnut Chart",
+        },
+      },
+    },
+  }
+
+  new Chart(document.getElementById(element), config) //for index
+  // const myChart = new Chart(document.getElementById("myArea"), config
+}
 
 ////function for getting api data
 
@@ -60,7 +63,7 @@ const options = {
 
 async function getApiData(foodItem) {
   try {
-    console.log(`soup${foodItem}`)
+    // console.log(`soup${foodItem}`)
     //changing food item string
 
     let response = await fetch(
@@ -73,7 +76,11 @@ async function getApiData(foodItem) {
     if (response.ok) {
       let data = await response.json()
       console.log("connection succesfull")
-      console.log(data)
+      console.log(data.results.display)
+      data.results.forEach((element) => {
+        console.log(element.display)
+        renderList(element.display)
+      })
     } else {
       console.log("unable to get data")
     }
@@ -85,6 +92,15 @@ async function getApiData(foodItem) {
 // getApiData("chicken soup")
 
 ///onclick sarchbutton functionality
-// searchBtn.addEventListener('click',()=>{
+searchBtn.addEventListener("click", () => {
+  output.innerHTML = ""
+  getApiData(searchbox.value)
+})
 
-// })
+function renderList(element) {
+  const templatClone = template.content.cloneNode(true)
+  console.log(templatClone)
+  const textElement = templatClone.querySelector(".list-item")
+  textElement.innerText = element
+  output.appendChild(templatClone)
+}
