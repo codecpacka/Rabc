@@ -11,16 +11,19 @@ const output = document.querySelector(".output")
 // console.log(box)
 console.log(searchbox)
 console.log(searchBtn)
-
 getCaloriesChart("myPieChart")
 
-function getCaloriesChart(element) {
+function getCaloriesChart(element, foodName = "food Name") {
   const data = {
     labels: ["Protein", "fat", "carbs"],
     datasets: [
       {
         label: "Dataset 1",
-        data: [3, 4, 6],
+        data: [
+          getRandomInt(10, 200),
+          getRandomInt(100, 400),
+          getRandomInt(10, 300),
+        ],
         backgroundColor: [
           "rgb(255, 99, 132)",
           "rgb(54, 162, 235)",
@@ -41,13 +44,14 @@ function getCaloriesChart(element) {
         },
         title: {
           display: true,
-          text: "Chart.js Doughnut Chart",
+          text: foodName,
         },
       },
     },
   }
 
-  new Chart(document.getElementById(element), config) //for index
+  myChart = new Chart(document.getElementById(element), config) //for index
+  // myChart.destroy()
   // const myChart = new Chart(document.getElementById("myArea"), config
 }
 
@@ -81,6 +85,7 @@ async function getApiData(foodItem) {
         console.log(element.display)
         renderList(element.display)
       })
+      test()
     } else {
       console.log("unable to get data")
     }
@@ -99,8 +104,27 @@ searchBtn.addEventListener("click", () => {
 
 function renderList(element) {
   const templatClone = template.content.cloneNode(true)
-  console.log(templatClone)
+  // console.log(templatClone)
   const textElement = templatClone.querySelector(".list-item")
   textElement.innerText = element
   output.appendChild(templatClone)
+}
+
+///random value generator
+function getRandomInt(min, max) {
+  min = Math.ceil(min)
+  max = Math.floor(max)
+  return Math.floor(Math.random() * (max - min) + min) //The maximum is exclusive and the minimum is inclusive
+}
+//testing code
+function test() {
+  let items = document.querySelectorAll(".list-item")
+  console.log(items)
+  items.forEach((element) => {
+    element.addEventListener("click", (e) => {
+      // console.log(getRandomInt(3, 10))
+      myChart.destroy()
+      getCaloriesChart("myPieChart", e.target.innerText)
+    })
+  })
 }

@@ -80,6 +80,8 @@ app.use(
   ensureAdmin,
   require("./routes/admin.route")
 )
+// doctor code
+app.use("/doctor", require("./routes/doctor.route"))
 //if any route is not handeled
 app.use((req, res, next) => {
   next(createHttpError.NotFound())
