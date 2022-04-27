@@ -45,7 +45,8 @@ const config = {
   },
 }
 
-const myChart = new Chart(document.getElementById("myPieChart"), config)
+const myChart = new Chart(document.getElementById("myPieChart"), config) //for index
+// const myChart = new Chart(document.getElementById("myArea"), config)
 
 ////function for getting api data
 

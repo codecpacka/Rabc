@@ -14,7 +14,12 @@ router.get("/signup", ensureNOTAuthenticated, async (req, res, next) => {
   req.flash("saved", "some value ")
   // const messages = req.flash()
   // console.log(messages)
-  res.render("signup.ejs")
+  res.render("signup.ejs") //original
+  doctor = {
+    welcome: "Doctor's Registration",
+    apply: "apply for registration",
+  }
+  res.render("doctorSignup.ejs", { doctor }) //for rendering doctor signup
 })
 ///fix error in routing logout
 router.get("/logout", ensureAuthenticated, async (req, res, next) => {

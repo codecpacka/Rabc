@@ -19,6 +19,7 @@ const app = express()
 
 app.set("views", [
   path.join(__dirname, "views"),
+  path.join(__dirname, "views/doctor"),
   path.join(__dirname, "views/layouts/adminSubLayouts/"),
   path.join(__dirname, "views/layouts/"),
 ])
@@ -123,8 +124,19 @@ mongoose
 
 //port configuration
 const PORT = process.env.PORT || 3000
+
+//supporting functions
 function ensureAdmin(req, res, next) {
   if (req.user.role === roles.admin) {
+    next()
+  } else {
+    req.flash("warning", "you are not Authorized to see this route")
+    res.redirect("/")
+  }
+}
+
+function ensureModerator(req, res, next) {
+  if (req.user.role === roles.moderator) {
     next()
   } else {
     req.flash("warning", "you are not Authorized to see this route")
