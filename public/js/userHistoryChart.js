@@ -1,5 +1,15 @@
 console.log("i amm history")
 
+const CHART_COLORS = {
+  red: "rgb(255, 99, 132)",
+  orange: "rgb(255, 159, 64)",
+  yellow: "rgb(255, 205, 86)",
+  green: "rgb(75, 192, 192)",
+  blue: "rgb(54, 162, 235)",
+  purple: "rgb(153, 102, 255)",
+  grey: "rgb(201, 203, 207)",
+}
+
 const MONTHS = [
   "January",
   "February",
@@ -23,14 +33,14 @@ const userHistorydata = {
     {
       label: "Dataset 1",
       data: [34, 45, 46, 45, 89],
-      borderColor: CHART_COLORS.red,
-      backgroundColor: Utils.transparentize(Utils.CHART_COLORS.red, 0.5),
+      borderColor: "rgb(255, 99, 132)",
+      backgroundColor: CHART_COLORS.red,
     },
     {
       label: "Dataset 2",
       data: [23, 78, 11, 34],
-      borderColor: Utils.CHART_COLORS.blue,
-      backgroundColor: Utils.transparentize(Utils.CHART_COLORS.blue, 0.5),
+      borderColor: CHART_COLORS.blue,
+      backgroundColor: CHART_COLORS.red,
     },
   ],
 }
@@ -57,7 +67,7 @@ const NUMBER_CFG = { count: DATA_COUNT, min: -100, max: 100 }
 
 const userHistory = new Chart(
   document.getElementById("userHistoryChart"),
-  config
+  userHistoryconfig
 )
 
 // all utils function

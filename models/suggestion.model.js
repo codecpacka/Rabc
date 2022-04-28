@@ -9,5 +9,5 @@ const suggestionSchema = new mongoose.Schema({
     type: String,
   },
 })
-const Suggestion = mongoose.model("Suggestion", DoctorSchema)
+const Suggestion = mongoose.model("Suggestion", suggestionSchema)
 module.exports = Suggestion

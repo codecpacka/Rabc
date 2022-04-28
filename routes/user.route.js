@@ -1,4 +1,7 @@
 const router = require("express").Router()
+const Suggestion = require("../models/suggestion.model")
+const { body, validationResult } = require("express-validator")
+const passport = require("passport")
 
 router.get("/profile", async (req, res, next) => {
   console.log(req.user)
@@ -16,6 +19,14 @@ router.get("/addsuggestions", async (req, res, next) => {
   console.log(req.user)
   const person = req.user
   res.render("./userAddSuggestion.ejs", { person })
+})
+//post suggestion
+router.post("/addsuggestions", async (req, res, next) => {
+  const suggestion = new Suggestion(req.body)
+  await suggestion.save()
+  res.send(req.body)
+  // req.flash("Succes", `${user.email} registered succesfull you may login`)
+  // res.render("./userAddSuggestion.ejs", { person })
 })
 
 module.exports = router
