@@ -1,7 +1,7 @@
 module.exports = {
   roles: {
     admin: "ADMIN",
-    moderator: "DOCTOR",
+    doctor: "DOCTOR",
     client: "CLIENT",
   },
   status: {

@@ -19,7 +19,7 @@ router.get("/signup", ensureNOTAuthenticated, async (req, res, next) => {
     welcome: "Doctor's Registration",
     apply: "apply for registration",
   }
-  res.render("doctorSignup.ejs", { doctor }) //for rendering doctor signup
+  // res.render("doctorSignup.ejs", { doctor }) //for rendering doctor signup
 })
 ///fix error in routing logout
 router.get("/logout", ensureAuthenticated, async (req, res, next) => {

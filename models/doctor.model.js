@@ -22,12 +22,9 @@ const DoctorSchema = new mongoose.Schema({
     enum: [roles.admin, roles.doctor, roles.client],
     default: roles.doctor,
   },
-  subscriber: {
-    type: mongoose.SchemaTypes.ObjectId,
-  },
   status: {
     type: String,
-    enum: [status.approved, status.pending],
+    enum: [status.pending, status.approved],
     default: status.pending,
   },
 })

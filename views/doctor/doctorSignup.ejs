@@ -23,10 +23,10 @@
                 <div class="signup-content">
                     <div class="signup-form">
                         <h2 class="form-title"><%= doctor.welcome?doctor.welcome:"Sign-Up" %> </h2>
-                        <form method="POST" action="/auth/signup" class="register-form" id="register-form">
+                        <form method="POST" action="/doctor/signup" class="register-form" id="register-form">
                             <div class="form-group">
                                 <label for="name"><i class="zmdi fzmdi-account material-icons-name"></i></label>
-                                <input type="text" name="name" id="name" placeholder="Your Name"/>
+                                <input type="text" name="username" id="name" placeholder="Your Name"/>
                             </div>
                             <div class="form-group">
                                 <label for="email"><i class="zmdi zmdi-email"></i></label>
@@ -39,12 +39,6 @@
                             <div class="form-group">
                                 <label for="re-pass"><i class="zmdi zmdi-lock-outline"></i></label>
                                 <input type="password" name="re_pass" id="re_pass" placeholder="Repeat your password"/>
-                            </div>
-                            <div class="form-group">
-                                <label for="re-pass"><span class="material-icons-outlined">
-                                    call
-                                    </span></label>
-                                <input type="number" name="re_pass" id="re_pass" placeholder="Mobile Number"/>
                             </div>
                             
                             <div class="form-group">
