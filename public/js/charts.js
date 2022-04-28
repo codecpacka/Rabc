@@ -124,7 +124,7 @@ function test() {
     element.addEventListener("click", (e) => {
       // console.log(getRandomInt(3, 10))
       myChart.destroy()
-      getCaloriesChart("myPieChart", e.target.innerText)
+      getCaloriesChart("myCalorimeterChart", e.target.innerText)
     })
   })
 }
