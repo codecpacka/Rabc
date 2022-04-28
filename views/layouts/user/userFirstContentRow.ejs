@@ -23,10 +23,23 @@
                     </div>
                 </div>
             </div>
+           <style>
+               .mainbox{
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+}
+
+               #chart{
+                   
+                   width: 24vw;
+                   
+                }
+                </style>
             <!-- Card Body -->
             <div class="card-body">
                 <div class="chart-area">
                     <!-- <canvas id="userDoctorGrowthChart"></canvas>note:  past content her -->
+                    <%- include('./layouts/calorimeter.ejs') %>
                 </div>
             </div>
         </div>

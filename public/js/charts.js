@@ -11,7 +11,7 @@ const output = document.querySelector(".output")
 // console.log(box)
 console.log(searchbox)
 console.log(searchBtn)
-getCaloriesChart("myPieChart")
+getCaloriesChart("myCalorimeterChart")
 
 function getCaloriesChart(element, foodName = "food Name") {
   const data = {
