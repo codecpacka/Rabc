@@ -216,12 +216,12 @@ tbody tr td:first-child {
 .goback {
   cursor: pointer;
 }
-
+/* 
 div.messages {
   display: flex;
   justify-content: center;
   align-items: center;
-}
+} */
 
 ul.messages {
   list-style: none;

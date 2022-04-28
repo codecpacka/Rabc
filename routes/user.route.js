@@ -12,5 +12,10 @@ router.get("/dashboard", async (req, res, next) => {
   const person = req.user
   res.render("user", { person })
 })
+router.get("/addsuggestions", async (req, res, next) => {
+  console.log(req.user)
+  const person = req.user
+  res.render("./userAddSuggestion.ejs", { person })
+})
 
 module.exports = router

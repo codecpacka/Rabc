@@ -25,12 +25,14 @@
                         <form method="POST" action="/auth/signup" class="register-form" id="register-form">
                             <div class="form-group">
                                 <label for="name"><i class="zmdi fzmdi-account material-icons-name"></i></label>
-                                <input type="text" name="name" id="name" placeholder="Your Name"/>
+                                <input type="text" name="username" id="username" placeholder="Your Name"
+                                value="<%= locals.username?username:"" %>"/">
                             </div>
                             <div class="form-group">
                                 <label for="email"><i class="zmdi zmdi-email"></i></label>
                                 <input type="email" name="email" id="email" placeholder="Your Email" value="<%= locals.email?email:"" %> "/>
                             </div>
+                        
                             <div class="form-group">
                                 <label for="pass"><i class="zmdi zmdi-lock"></i></label>
                                 <input type="password" name="password" id="pass" placeholder="password"/>

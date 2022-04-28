@@ -1,7 +1,7 @@
 const mongoose = require("mongoose")
 const bcrypt = require("bcrypt")
-const { roles } = require("../utils/constants") //importing roles
-const UserSchema = new mongoose.Schema({
+const { roles, status } = require("../utils/constants") //importing roles
+const DoctorSchema = new mongoose.Schema({
   username: {
     type: String,
     required: true,
@@ -19,12 +19,20 @@ const UserSchema = new mongoose.Schema({
   },
   role: {
     type: String,
-    enum: [roles.admin, roles.moderator, roles.client],
-    default: roles.client,
+    enum: [roles.admin, roles.doctor, roles.client],
+    default: roles.doctor,
+  },
+  subscriber: {
+    type: mongoose.SchemaTypes.ObjectId,
+  },
+  status: {
+    type: String,
+    enum: [status.approved, status.pending],
+    default: status.pending,
   },
 })
 //this runs whenever someone saves a document
-UserSchema.pre("save", async function (next) {
+DoctorSchema.pre("save", async function (next) {
   try {
     if (this.isNew) {
       const salt = await bcrypt.genSalt(10)
@@ -40,7 +48,7 @@ UserSchema.pre("save", async function (next) {
   }
 })
 
-UserSchema.methods.isValidPassword = async function (password) {
+DoctorSchema.methods.isValidPassword = async function (password) {
   try {
     return await bcrypt.compare(password, this.password)
   } catch (error) {
@@ -48,5 +56,5 @@ UserSchema.methods.isValidPassword = async function (password) {
   }
 }
 
-const User = mongoose.model("User", UserSchema)
-module.exports = User
+const Doctor = mongoose.model("Doctor", DoctorSchema)
+module.exports = Doctor

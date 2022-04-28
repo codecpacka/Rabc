@@ -21,6 +21,7 @@ app.set("views", [
   path.join(__dirname, "views"),
   path.join(__dirname, "views/doctor"),
   path.join(__dirname, "views/layouts/adminSubLayouts/"),
+  path.join(__dirname, "views/layouts/user/userSubLayouts/"),
   path.join(__dirname, "views/layouts/user/"),
   path.join(__dirname, "views/layouts/"),
 ])
