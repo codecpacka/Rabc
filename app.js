@@ -75,12 +75,20 @@ app.use(
   ensureLoggedIn({ redirectTo: "/auth/login" }),
   require("./routes/user.route")
 )
+// note: original code
+// app.use(
+//   "/admin",
+//   ensureLoggedIn({ redirectTo: "/auth/login" }),
+//   ensureAdmin,
+//   require("./routes/admin.route")
+// )
 app.use(
   "/admin",
   ensureLoggedIn({ redirectTo: "/auth/login" }),
   ensureAdmin,
   require("./routes/admin.route")
 )
+
 // doctor code
 app.use("/doctor", require("./routes/doctor.route"))
 //if any route is not handeled
