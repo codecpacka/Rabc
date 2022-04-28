@@ -32,7 +32,7 @@ router.post(
   "/login",
   ensureNOTAuthenticated,
   passport.authenticate("local", {
-    successRedirect: "/user/profile",
+    successRedirect: "/user/dashboard", //modified
     failureRedirect: "/auth/login",
     failureFlash: true,
   })
@@ -89,16 +89,6 @@ router.post(
 
 ////
 
-router.post(
-  "/login",
-  ensureNOTAuthenticated,
-  passport.authenticate("local", {
-    // successRedirect: '/',
-    successReturnToOrRedirect: "/user/profile",
-    failureRedirect: "/auth/login",
-    failureFlash: true,
-  })
-)
 ////
 
 function ensureAuthenticated(req, res, next) {
