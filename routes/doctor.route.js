@@ -60,19 +60,22 @@ router.post(
         errors.array().forEach((error) => {
           req.flash("error", error.msg)
         })
-        res.render("signup", { email: req.body.email, messages: req.flash() })
+        res.render("doctorSignup", {
+          email: req.body.email,
+          messages: req.flash(),
+        })
         return
       }
       const { email } = req.body
       const doesExist = await Doctor.findOne({ email })
       if (doesExist) {
-        res.redirect("/doctor/signin")
+        res.redirect("/doctor/signup/")
         return
       }
       const doctor = new Doctor(req.body)
       await doctor.save()
       req.flash("Succes", `${doctor.email} registered succesfull you may login`)
-      res.redirect("/auth/login")
+      res.redirect("/doctor/login")
       // res.send(user)
     } catch (error) {
       next(error)
@@ -89,3 +92,10 @@ router.get("/changePassword", (req, res, next) => {
 })
 
 module.exports = router
+function ensureNOTAuthenticated(req, res, next) {
+  if (req.isAuthenticated()) {
+    res.redirect("back")
+  } else {
+    next()
+  }
+}
