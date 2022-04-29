@@ -1,5 +1,6 @@
 // const axios = require("axios")
 console.log("this is chart js ")
+var myChart
 const DATA_COUNT = 3
 const NUMBER_CFG = { count: DATA_COUNT, min: 0, max: 100 }
 
