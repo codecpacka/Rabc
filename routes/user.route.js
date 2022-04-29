@@ -1,5 +1,7 @@
 const router = require("express").Router()
 const Suggestion = require("../models/suggestion.model")
+const User = require("../models/user.model")
+
 const { body, validationResult } = require("express-validator")
 const passport = require("passport")
 
@@ -12,6 +14,7 @@ router.get("/profile", async (req, res, next) => {
 //my dashboard
 router.get("/dashboard", async (req, res, next) => {
   console.log(req.user)
+
   const person = req.user
   res.render("user", { person })
 })

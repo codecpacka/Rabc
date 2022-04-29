@@ -1,4 +1,6 @@
 const User = require("../models/user.model")
+const Doctor = require("../models/doctor.model")
+const Suggestion = require("../models/suggestion.model")
 const router = require("express").Router()
 const mongoose = require("mongoose")
 const { roles } = require("../utils/constants")
@@ -64,8 +66,19 @@ router.post("/update-role", async (req, res, next) => {
 })
 
 // my project routes dashboard
-router.get("/dashboard", (req, res, next) => {
-  res.render("admin.ejs")
+router.get("/dashboard", async (req, res, next) => {
+  const userCount = await User.find({ role: "CLIENT" }).count()
+  const doctorCount = await Doctor.find({ role: "DOCTOR" }).count()
+  const suggestionCount = await Suggestion.find().count()
+  console.log(`total number of users are ${userCount}`)
+  console.log(`total number of Doctor are ${doctorCount}`)
+  console.log(`total number of Suggestions are ${suggestionCount}`)
+  info = {
+    userCount: userCount,
+    doctorCount: doctorCount,
+    suggestionCount: suggestionCount,
+  }
+  res.render("admin.ejs", { info })
 })
 //changePassword
 router.get("/changePassword", (req, res, next) => {

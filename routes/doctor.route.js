@@ -18,6 +18,20 @@ router.get("/signup", async (req, res, next) => {
   }
   res.render("doctorSignup.ejs", { doctor }) //for rendering doctor signup
 })
+router.get("/login", async (req, res, next) => {
+  req.flash("error", "some error ")
+  req.flash("error", "some error 2 ")
+  req.flash("info", "some value ")
+  req.flash("saved", "some value ")
+  // const messages = req.flash()
+  // console.log(messages)
+  // res.render("signup.ejs") //original
+  doctor = {
+    welcome: "Doctor's Registration",
+    apply: "apply for registration",
+  }
+  res.render("doctorLogin.ejs", { doctor }) //for rendering doctor signup
+})
 //doctor post
 router.post(
   "/signup",
