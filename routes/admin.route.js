@@ -64,7 +64,7 @@ router.post("/update-role", async (req, res, next) => {
 })
 
 // my project routes dashboard
-router.get("/main", (req, res, next) => {
+router.get("/dashboard", (req, res, next) => {
   res.render("admin.ejs")
 })
 //changePassword
