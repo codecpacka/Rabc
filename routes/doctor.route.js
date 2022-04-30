@@ -104,7 +104,11 @@ router.get("/dashboard", (req, res, next) => {
 router.get("/changePassword", (req, res, next) => {
   res.render("changePassword.ejs")
 })
-
+//logout
+router.get("/logout", async (req, res, next) => {
+  req.logout()
+  res.redirect("/")
+})
 module.exports = router
 function ensureNOTAuthenticated(req, res, next) {
   if (req.isAuthenticated()) {
