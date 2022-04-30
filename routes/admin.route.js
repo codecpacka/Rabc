@@ -3,6 +3,8 @@ const Doctor = require("../models/doctor.model")
 const Suggestion = require("../models/suggestion.model")
 const router = require("express").Router()
 const mongoose = require("mongoose")
+const { body, validationResult } = require("express-validator")
+const passport = require("passport")
 const { roles } = require("../utils/constants")
 
 router.get("/users", async (req, res, next) => {
@@ -84,5 +86,19 @@ router.get("/dashboard", async (req, res, next) => {
 router.get("/changePassword", (req, res, next) => {
   res.render("changePassword.ejs")
 })
+//adminlogin
+router.get("/login", (req, res, next) => {
+  res.render("adminLogin.ejs")
+})
+//admn login post
+router.post(
+  "/login",
+  passport.authenticate("AdminMiddleWare", {
+    // successRedirect: "/user/profile", //original
+    successRedirect: "/doctor/dashboard", //modified
+    failureRedirect: "/doctor/login",
+    failureFlash: true,
+  })
+)
 
 module.exports = router

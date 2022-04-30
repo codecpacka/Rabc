@@ -1,8 +1,7 @@
 const mongoose = require("mongoose")
 const bcrypt = require("bcrypt")
 const { roles } = require("../utils/constants") //importing roles
-const Admin = require("../models/admin.model")
-const UserSchema = new mongoose.Schema({
+const AdminSchema = new mongoose.Schema({
   username: {
     type: String,
     required: true,
@@ -21,11 +20,11 @@ const UserSchema = new mongoose.Schema({
   role: {
     type: String,
     enum: [roles.admin, roles.moderator, roles.client],
-    default: roles.client,
+    default: roles.admin,
   },
 })
 //this runs whenever someone saves a document
-UserSchema.pre("save", async function (next) {
+AdminSchema.pre("save", async function (next) {
   try {
     if (this.isNew) {
       const salt = await bcrypt.genSalt(10)
@@ -33,8 +32,6 @@ UserSchema.pre("save", async function (next) {
       this.password = hashedPassword
       if (this.email === process.env.ADMIN_EMAIL.toLowerCase()) {
         this.role = roles.admin
-        const newAdmin = await new Admin(this)
-        await newAdmin.save()
       }
     }
     next()
@@ -43,7 +40,7 @@ UserSchema.pre("save", async function (next) {
   }
 })
 
-UserSchema.methods.isValidPassword = async function (password) {
+AdminSchema.methods.isValidPassword = async function (password) {
   try {
     return await bcrypt.compare(password, this.password)
   } catch (error) {
@@ -51,5 +48,5 @@ UserSchema.methods.isValidPassword = async function (password) {
   }
 }
 
-const User = mongoose.model("User", UserSchema)
-module.exports = User
+const Admin = mongoose.model("Admin", AdminSchema)
+module.exports = Admin

@@ -20,6 +20,7 @@ const app = express()
 app.set("views", [
   path.join(__dirname, "views"),
   path.join(__dirname, "views/doctor"),
+  path.join(__dirname, "views/admin"),
   path.join(__dirname, "views/layouts/adminSubLayouts/"),
   path.join(__dirname, "views/layouts/user/userSubLayouts/"),
   path.join(__dirname, "views/layouts/user/"),
@@ -84,12 +85,7 @@ app.use(
 //   ensureAdmin,
 //   require("./routes/admin.route")
 // )
-app.use(
-  "/admin",
-  ensureLoggedIn({ redirectTo: "/auth/login" }),
-  ensureAdmin,
-  require("./routes/admin.route")
-)
+app.use("/admin", require("./routes/admin.route"))
 
 // doctor code
 app.use("/doctor", require("./routes/doctor.route"))
