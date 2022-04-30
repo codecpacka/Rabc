@@ -33,7 +33,8 @@ router.post(
   ensureNOTAuthenticated,
   passport.authenticate("local", {
     // successRedirect: "/user/profile", //original
-    successRedirect: "/user/dashboard", //modified
+    successRedirect: "/user/dashboard", //original
+
     failureRedirect: "/auth/login",
     failureFlash: true,
   })
