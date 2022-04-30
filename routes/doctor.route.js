@@ -1,4 +1,5 @@
 const Doctor = require("../models/doctor.model")
+const User = require("../models/user.model")
 const router = require("express").Router()
 const { body, validationResult } = require("express-validator")
 const passport = require("passport")
@@ -82,8 +83,21 @@ router.post(
     }
   }
 )
-
+//  passport.authenticate("type of stratergy",{options})
+//note: login post code is below
+router.post(
+  "/login",
+  passport.authenticate("local", {
+    // successRedirect: "/user/profile", //original
+    successRedirect: "/doctor/dashboard", //modified
+    failureRedirect: "/doctor/login",
+    failureFlash: true,
+  })
+)
 router.get("/dashboard", (req, res, next) => {
+  const doctor = req.doctor
+  console.log("printing dashboard data")
+  console.log(req.doctor)
   res.render("doctor.ejs")
 })
 //changePassword

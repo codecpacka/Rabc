@@ -1,6 +1,7 @@
 const mongoose = require("mongoose")
 const bcrypt = require("bcrypt")
 const { roles, status } = require("../utils/constants") //importing roles
+const createHttpError = require("http-errors")
 const DoctorSchema = new mongoose.Schema({
   username: {
     type: String,
@@ -24,7 +25,7 @@ const DoctorSchema = new mongoose.Schema({
   },
   status: {
     type: String,
-    enum: [status.pending, status.approved],
+    enum: [status.pending, status.doctor],
     default: status.pending,
   },
 })
@@ -49,6 +50,20 @@ DoctorSchema.methods.isValidPassword = async function (password) {
   try {
     return await bcrypt.compare(password, this.password)
   } catch (error) {
+    throw createHttpError.InternalServerError(error.message)
+  }
+}
+DoctorSchema.methods.isApproved = async function () {
+  try {
+    if (this.status == "APPROVED") {
+      // return true// original
+      return true
+    } else {
+      // return false// original
+      return false
+    }
+  } catch (error) {
+    // this is the error we are passing
     throw createHttpError.InternalServerError(error.message)
   }
 }

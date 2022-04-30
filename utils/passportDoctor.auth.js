@@ -1,6 +1,6 @@
 const passport = require("passport")
 const LocalStrategy = require("passport-local").Strategy
-const User = require("../models/user.model")
+const Doctor = require("../models/doctor.model")
 
 passport.use(
   new LocalStrategy(
@@ -10,18 +10,18 @@ passport.use(
     },
     async (email, password, done) => {
       try {
-        const user = await User.findOne({ email }) //mongodb command
+        const doctor = await Doctor.findOne({ email }) //mongodb command
         // Username/email does NOT exist
-        if (!user) {
+        if (!doctor) {
           return done(null, false, {
             message: "Username/email not registered",
           })
         }
         // Email exist and now we need to verify the password
-        const isMatch = await user.isValidPassword(password)
+        const isMatch = await doctor.isValidPassword(password)
 
         return isMatch
-          ? done(null, user)
+          ? done(null, doctor)
           : done(null, false, { message: "Incorrect password" })
       } catch (error) {
         done(error)
