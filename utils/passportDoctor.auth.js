@@ -20,9 +20,17 @@ passport.use(
         // Email exist and now we need to verify the password
         const isMatch = await doctor.isValidPassword(password)
 
-        return isMatch
-          ? done(null, doctor)
-          : done(null, false, { message: "Incorrect password" })
+        if (isMatch) {
+          const isapproved = await doctor.isApproved()
+          console.log(isapproved)
+          if (isapproved) {
+            done(null, doctor)
+          } else {
+            done(null, false, { message: "Request pending " })
+          }
+        } else {
+          done(null, false, { message: "Incorrect password" })
+        }
       } catch (error) {
         done(error)
       }
