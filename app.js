@@ -74,6 +74,8 @@ app.use((req, res, next) => {
 //initial route which will handle "/anyroute"
 app.use("/", require("./routes/index.route"))
 app.use("/auth", require("./routes/auth.route"))
+
+// note:  original
 app.use(
   "/user",
   ensureLoggedIn({ redirectTo: "/auth/login" }),
@@ -136,6 +138,14 @@ mongoose
 const PORT = process.env.PORT || 3000
 
 //supporting functions
+function ensureAuthenticated(req, res, next) {
+  if (req.isAuthenticated()) {
+    next()
+  } else {
+    res.redirect("/user/login/")
+  }
+}
+
 function ensureAdmin(req, res, next) {
   if (req.user.role === roles.admin) {
     next()

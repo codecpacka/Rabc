@@ -2,10 +2,17 @@ const router = require("express").Router()
 const User = require("../models/user.model")
 const { body, validationResult } = require("express-validator")
 const passport = require("passport")
+const connctEnsure = require("connect-ensure-login")
 
-router.get("/login", ensureNOTAuthenticated, async (req, res, next) => {
-  res.render("login.ejs")
-})
+router.get(
+  "/login",
+  connctEnsure.ensureLoggedOut({
+    redirectTo: "/user/dashboard/",
+  }),
+  async (req, res, next) => {
+    res.render("login.ejs")
+  }
+)
 
 router.get("/signup", ensureNOTAuthenticated, async (req, res, next) => {
   req.flash("error", "some error ")
@@ -22,18 +29,23 @@ router.get("/signup", ensureNOTAuthenticated, async (req, res, next) => {
   // res.render("doctorSignup.ejs", { doctor }) //for rendering doctor signup
 })
 ///fix error in routing logout
-router.get("/logout", ensureAuthenticated, async (req, res, next) => {
-  req.logout()
-  res.redirect("/")
-})
+router.get(
+  "/logout",
+  connctEnsure.ensureLoggedIn({
+    redirectTo: "/user/dashboard",
+  }),
+  async (req, res, next) => {
+    req.logout()
+    res.redirect("/")
+  }
+)
 ///post requests
 
 router.post(
   "/login",
-  ensureNOTAuthenticated,
   passport.authenticate("local", {
     // successRedirect: "/user/profile", //original
-    successRedirect: "/user/dashboard", //original
+    successReturnToOrRedirect: "/user/dashboard", //original
 
     failureRedirect: "/auth/login",
     failureFlash: true,
@@ -103,10 +115,10 @@ function ensureAuthenticated(req, res, next) {
 
 function ensureNOTAuthenticated(req, res, next) {
   if (req.isAuthenticated()) {
-    res.redirect("back")
+    // res.redirect("back") note: original
+    res.redirect("/user/dashboard")
   } else {
     next()
   }
 }
-
 module.exports = router
