@@ -97,7 +97,7 @@ router.post(
 router.get("/dashboard", (req, res, next) => {
   console.log("printing dashboard data")
   console.log(req.user)
-  // console.log(req.doctor)
+  console.log(req.doctor)
   res.render("doctor.ejs")
 })
 //changePassword

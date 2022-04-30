@@ -1,9 +1,10 @@
 const passport = require("passport")
 const LocalStrategy = require("passport-local").Strategy
-const Admin = require("../models/doctor.model")
+const Admin = require("../models/admin.model")
+const User = require("../models/user.model")
 
 passport.use(
-  "AdminMiddleWare",
+  "adminMiddleWare",
   new LocalStrategy(
     {
       usernameField: "email",
@@ -11,24 +12,17 @@ passport.use(
     },
     async (email, password, done) => {
       try {
-        const doctor = await Doctor.findOne({ email }) //mongodb command
+        const admin = await Admin.findOne({ email }) //mongodb command
         // Username/email does NOT exist
-        if (!doctor) {
+        if (!admin) {
           return done(null, false, {
             message: "Username/email not registered",
           })
         }
         // Email exist and now we need to verify the password
-        const isMatch = await doctor.isValidPassword(password)
-
-        if (isMatch) {
-          const isapproved = await doctor.isApproved()
-          console.log(isapproved)
-          if (isapproved) {
-            done(null, doctor)
-          } else {
-            done(null, false, { message: "Request pending " })
-          }
+        console.log("password is" + password)
+        if (password === "pass") {
+          done(null, admin)
         } else {
           done(null, false, { message: "Incorrect password" })
         }
@@ -39,12 +33,12 @@ passport.use(
   )
 )
 //session + cookie automatically for traferring user details if succesfull by decrypting it
-passport.serializeUser(function (doctor, done) {
-  done(null, doctor.id)
+passport.serializeUser(function (user, done) {
+  done(null, user.id)
 })
 
 passport.deserializeUser(function (id, done) {
-  Doctor.findById(id, function (err, user) {
+  Admin.findById(id, function (err, user) {
     done(err, user)
   })
 })

@@ -69,15 +69,20 @@ router.post("/update-role", async (req, res, next) => {
 
 // my project routes dashboard
 router.get("/dashboard", async (req, res, next) => {
+  console.log(req.user)
+  console.log(req.admin)
   const userCount = await User.find({ role: "CLIENT" }).count()
   const doctorCount = await Doctor.find({ role: "DOCTOR" }).count()
   const suggestionCount = await Suggestion.find().count()
+
   console.log(`total number of users are ${userCount}`)
   console.log(`total number of Doctor are ${doctorCount}`)
   console.log(`total number of Suggestions are ${suggestionCount}`)
+
   info = {
     userCount: userCount,
     doctorCount: doctorCount,
+    suggestions: suggestions,
     suggestionCount: suggestionCount,
   }
   res.render("admin.ejs", { info })
@@ -90,15 +95,29 @@ router.get("/changePassword", (req, res, next) => {
 router.get("/login", (req, res, next) => {
   res.render("adminLogin.ejs")
 })
-//admn login post
+
+//admin view suggestion
+router.get("/suggestions", async (req, res, next) => {
+  // res.send("all suggestions")
+  const suggestions = await Suggestion.find()
+  console.log(suggestions)
+  res.render("viewSuggestions.ejs", { suggestions })
+})
+
+//admn post login
 router.post(
   "/login",
-  passport.authenticate("AdminMiddleWare", {
+  passport.authenticate("adminMiddleWare", {
     // successRedirect: "/user/profile", //original
-    successRedirect: "/doctor/dashboard", //modified
-    failureRedirect: "/doctor/login",
+    successRedirect: "/admin/dashboard", //original
+
+    failureRedirect: "/admin/login",
     failureFlash: true,
-  })
+  }),
+  (req, res, next) => {
+    console.log("sending admin response")
+    res.send(req.body)
+  }
 )
 
 module.exports = router

@@ -1,0 +1,73 @@
+
+
+
+ <%- include('./layouts/adminHeader.ejs') %> 
+
+ <!-- ///note: admin header above if want to edit /link new css  -->
+
+<body id="page-top">
+   <!-- Page Wrapper -->
+      
+   <div id="wrapper"> 
+                <!-- note: do not edit above code its the main div -->
+       <!-- Sidebar -->
+       <%- include('./layouts/adminSidebar.ejs') %> 
+       <!-- End of Sidebar -->
+
+       <!-- Content Wrapper -->
+       <div id="content-wrapper" class="d-flex flex-column">
+
+           <!-- Main Content -->
+           <div id="content">
+
+               <!-- Topbar -->
+              <%- include('./layouts/adminTopBar.ejs') %> 
+              <!-- note: do not edit top bar (where dashboard text is available) -->
+               <!-- End of Topbar -->
+
+               imp: only edit content of content row 
+
+                
+               <table class="table">
+                <thead class="table-primary">
+                  <tr class="table-primary" >
+                    <th scope="col">Count</th>
+                    <th scope="col">Type</th>
+                    <th scope="col">Suggestion</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% for(var i=0; i < suggestions.length; i++) { %>
+                  <tr>
+                    <th scope="row"><%= i+1 %> </th>
+                    <td><%= suggestions[i].type %> </td>
+                    <td><%= suggestions[i].suggestion %> </td>
+    
+                   
+                  </tr>
+                  <% } %>
+                  <table>
+                    </table>
+                
+                </tbody>
+              </table>
+              
+           
+                   <!-- Content Row -->
+                
+               </div>
+               <!-- note: don't remove the above div -->
+               <!-- /.container-fluid -->
+
+           </div>
+           <!-- End of Main Content -->
+
+           <!-- Footer -->
+           <%- include('./layouts/adminFooter.ejs') %> 
+           note: admin footer below contains the end tab
+
+
+
+
+
+
