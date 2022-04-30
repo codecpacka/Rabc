@@ -3,6 +3,7 @@ const LocalStrategy = require("passport-local").Strategy
 const Doctor = require("../models/doctor.model")
 
 passport.use(
+  "DoctorMiddleWare",
   new LocalStrategy(
     {
       usernameField: "email",

@@ -55,7 +55,7 @@ app.use(
 app.use(passport.initialize())
 app.use(passport.session())
 require("./utils/passport.auth") //simple auth //note: ucomeent original
-// require("./utils/passportDoctor.auth") //including doctor passport authentication
+require("./utils/passportDoctor.auth") //including doctor passport authentication
 
 app.use((req, res, next) => {
   res.locals.user = req.user

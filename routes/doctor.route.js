@@ -87,7 +87,7 @@ router.post(
 //note: login post code is below
 router.post(
   "/login",
-  passport.authenticate("local", {
+  passport.authenticate("DoctorMiddleWare", {
     // successRedirect: "/user/profile", //original
     successRedirect: "/doctor/dashboard", //modified
     failureRedirect: "/doctor/login",
