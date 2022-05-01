@@ -2,6 +2,15 @@ const mongoose = require("mongoose")
 const bcrypt = require("bcrypt")
 const { roles } = require("../utils/constants") //importing roles
 const Admin = require("../models/admin.model")
+const { json } = require("express/lib/response")
+
+const itemsSchema = new mongoose.Schema({
+  foodName: String,
+  pro: Number,
+  fat: Number,
+  cal: Number,
+})
+
 const UserSchema = new mongoose.Schema({
   username: {
     type: String,
@@ -22,6 +31,13 @@ const UserSchema = new mongoose.Schema({
     type: String,
     enum: [roles.admin, roles.moderator, roles.client],
     default: roles.client,
+  },
+  foodConsumed: {
+    date: {
+      type: String,
+      default: "no date ",
+    },
+    foodItems: [itemsSchema],
   },
 })
 //this runs whenever someone saves a document
