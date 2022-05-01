@@ -15,8 +15,13 @@ const { roles } = require("./utils/constants")
 
 //initialization
 const app = express()
-// note: the above line should always be first
 
+app.use(express.json())
+// note: the above line should always be first
+app.post("/api", (request, response) => {
+  console.log("inside post request")
+  console.log(request.body)
+})
 app.set("views", [
   path.join(__dirname, "views"),
   path.join(__dirname, "views/doctor"),
@@ -30,7 +35,7 @@ app.set("views", [
 app.use(morgan("dev"))
 app.set("view engine", "ejs")
 app.use(express.static("public"))
-app.use(express.json())
+
 app.use(
   express.urlencoded({
     extended: false,

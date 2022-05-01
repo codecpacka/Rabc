@@ -1,8 +1,9 @@
 const router = require("express").Router()
 
 router.get("/", (req, res, next) => {
-  res.render("index.ejs")
+  res.render("index.ejs") //modified
 })
+
 // router.get("/signup", (req, res, next) => {
 //   res.render("signup.ejs")
 // })
