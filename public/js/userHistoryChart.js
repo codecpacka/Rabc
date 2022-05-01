@@ -1,6 +1,6 @@
 import { foodValues } from "./charts.js"
 console.log(foodValues)
-
+var data
 console.log("i amm history")
 const addDataBtn = document.querySelector("#addDataBtn")
 console.log(addDataBtn)
@@ -37,48 +37,61 @@ const MONTHS = [
 
 const labels = months({ count: 7 })
 
-const userHistorydata = {
-  labels: labels,
-  datasets: [
-    {
-      label: "Dataset 1",
-      data: [34, 45, 46, 45, 89],
-      borderColor: "rgb(255, 99, 132)",
-      backgroundColor: CHART_COLORS.red,
-    },
-    {
-      label: "Dataset 2",
-      data: [23, 78, 11, 34],
-      borderColor: CHART_COLORS.blue,
-      backgroundColor: CHART_COLORS.red,
-    },
-  ],
-}
-
-const userHistoryconfig = {
-  type: "line",
-  data: userHistorydata,
-  options: {
-    responsive: true,
-    plugins: {
-      legend: {
-        position: "top",
-      },
-      title: {
-        display: true,
-        text: "user history",
-      },
-    },
-  },
-}
-
 const DATA_COUNT = 7
 const NUMBER_CFG = { count: DATA_COUNT, min: -100, max: 100 }
+async function renderUserHistory(userdata) {
+  console.log(userdata.foodItems.length)
+  const DATE_COUNT = userdata.foodItems.length
+  const labels = ["day"]
+  for (let i = 1; i < DATE_COUNT; ++i) {
+    labels.push(i.toString())
+  }
+  const userHistorydata = {
+    labels: labels,
+    datasets: [
+      {
+        label: "protein",
+        data: userdata.foodItems.map((element) => element.pro),
+        borderColor: "rgb(255, 99, 132)",
+        backgroundColor: CHART_COLORS.red,
+      },
+      {
+        label: "fat",
+        data: userdata.foodItems.map((element) => element.fat),
+        borderColor: CHART_COLORS.blue,
+        backgroundColor: CHART_COLORS.red,
+      },
+      {
+        label: "calories",
+        data: userdata.foodItems.map((element) => element.cal),
+        borderColor: CHART_COLORS.yellow,
+        backgroundColor: CHART_COLORS.red,
+      },
+    ],
+  }
 
-const userHistory = new Chart(
-  document.getElementById("userHistoryChart"),
-  userHistoryconfig
-)
+  const userHistoryconfig = {
+    type: "line",
+    data: userHistorydata,
+    options: {
+      responsive: true,
+      plugins: {
+        legend: {
+          position: "top",
+        },
+        title: {
+          display: true,
+          text: "user history",
+        },
+      },
+    },
+  }
+
+  const userHistory = new Chart(
+    document.getElementById("userHistoryChart"),
+    userHistoryconfig
+  )
+}
 
 // all utils function
 function numbers(config) {
@@ -130,16 +143,20 @@ async function sendUserData() {
   }
 
   const response = await fetch("/user/api/", options)
-  const data = await response.json()
+  data = await response.json()
   console.log(data)
 }
 
 // sendUserData()  note: for getting new data
 
-//  imp: for updating new data that is found
+//  imp: for updating new data thnutritionTypeis found
 async function updateUserHistory() {
   const response = await fetch("/user/api")
-  const data = await response.json()
+  data = await response.json()
   console.log(data)
+
+  renderUserHistory(data)
 }
-updateUserHistory()
+updateUserHistory() // note: for getting user history data
+
+// helper function note: just for generating array of pro,fat,cal
