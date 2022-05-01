@@ -13,4 +13,10 @@ const option = {
     // 'Content-Type': 'application/x-www-form-urlencoded',
   },
 }
-fetch("/api", option)
+const emptyArray = []
+async function getApiResponse() {
+  const gotResponse = await fetch("/api", option)
+  const body = await gotResponse.json()
+  console.log(body)
+}
+getApiResponse()
