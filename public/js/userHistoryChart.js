@@ -134,4 +134,12 @@ async function sendUserData() {
   console.log(data)
 }
 
-sendUserData()
+// sendUserData()  note: for getting new data
+
+//  imp: for updating new data that is found
+async function updateUserHistory() {
+  const response = await fetch("/user/api")
+  const data = await response.json()
+  console.log(data)
+}
+updateUserHistory()

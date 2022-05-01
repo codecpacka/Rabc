@@ -4,14 +4,25 @@ const User = require("../models/user.model")
 
 const { body, validationResult } = require("express-validator")
 const passport = require("passport")
+// note: get api
+router.get("/api", async (req, res, next) => {
+  try {
+    console.log("data of only food consumed with date sent succesfull")
+    res.send(req.user.foodConsumed)
+  } catch (e) {
+    console.log("some error while sending data")
+    console.log(e)
+  }
+})
 
+// note:  /post api
 router.post("/api", async (req, res, next) => {
   try {
     console.log("found request")
     // console.log(req.body)
     var user = JSON.parse(req.body.user)
-    console.log(req.body.foodValues)
-    console.log(user.email)
+    // console.log(req.body.foodValues)
+    // console.log(user.email)
 
     await User.findOneAndUpdate(
       { email: "tester@gmail.com" },
@@ -20,15 +31,7 @@ router.post("/api", async (req, res, next) => {
     const op = await User.find({ email: user.email })
     console.log(op)
     console.log("query done")
-    // console.log(user)
-    // data = req.body
-    // console.log("sending response")
-    // res.json({
-    //   status: "success",
-    //   pro: data.food,
-    //   fat: data.fat,
-    //   cal: data.cal,
-    // })
+    res.json(user.foodConsumed.foodItems)
   } catch (e) {
     console.log("error found")
     console.log(e)
