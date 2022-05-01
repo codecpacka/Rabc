@@ -12,19 +12,21 @@ const output = document.querySelector(".output")
 // console.log(box)
 console.log(searchbox)
 console.log(searchBtn)
+export const foodValues = {
+  pro: getRandomInt(10, 60), //note:   food item values
+  fat: getRandomInt(30, 80),
+  cal: getRandomInt(10, 30),
+}
 getCaloriesChart("myCalorimeterChart")
 
+//
 function getCaloriesChart(element, foodName = "food Name") {
   const data = {
     labels: ["Protein", "fat", "carbs"],
     datasets: [
       {
         label: "Dataset 1",
-        data: [
-          getRandomInt(10, 200),
-          getRandomInt(100, 400),
-          getRandomInt(10, 300),
-        ],
+        data: [foodValues.pro, foodValues.fat, foodValues.cal], ///data generating here
         backgroundColor: [
           "rgb(255, 99, 132)",
           "rgb(54, 162, 235)",
@@ -129,3 +131,4 @@ function test() {
     })
   })
 }
+// / imp: exported variables

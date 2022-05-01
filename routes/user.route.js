@@ -4,7 +4,11 @@ const User = require("../models/user.model")
 
 const { body, validationResult } = require("express-validator")
 const passport = require("passport")
+// / imp: routes below
 
+router.post("/adddata", (req, res) => {})
+
+// / imp: adding new data updatin routes
 router.get("/profile", async (req, res, next) => {
   console.log(req.user)
   const person = req.user

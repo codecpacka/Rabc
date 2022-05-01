@@ -1,4 +1,8 @@
+import { foodValues } from "./charts.js"
+
 console.log("i amm history")
+const addDataBtn = document.querySelector("#addDataBtn")
+console.log(addDataBtn)
 
 const CHART_COLORS = {
   red: "rgb(255, 99, 132)",
@@ -56,7 +60,7 @@ const userHistoryconfig = {
       },
       title: {
         display: true,
-        text: "Chart.js Line Chart",
+        text: "user history",
       },
     },
   },
@@ -108,3 +112,21 @@ function months(config) {
 
   return values
 }
+
+async function updateUserHistory(foodValues) {
+  console.log(foodValues)
+  const option = {
+    method: "POST",
+    body: JSON.stringify(foodValues),
+    headers: {
+      "Content-Type": "application/json",
+      // 'Content-Type': 'application/x-www-form-urlencoded',
+    },
+  }
+
+  const gotResponse = await fetch("/api", option)
+  const body = await gotResponse.json()
+  console.log(body)
+}
+//function calling
+updateUserHistory(foodValues)
