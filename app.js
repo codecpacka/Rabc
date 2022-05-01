@@ -15,12 +15,21 @@ const { roles } = require("./utils/constants")
 
 //initialization
 const app = express()
+const Suggestion = require("./models/suggestion.model")
 
 app.use(express.json())
 // note: the above line should always be first
 app.post("/api", (request, response) => {
   console.log("inside post request")
   console.log(request.body)
+  let data = request.body
+  const suggestion = new Suggestion({ suggestion: "hi", type: "error" })
+  suggestion.save()
+  response.json({
+    status: "succes",
+    foodName: data.foodName,
+    cal: data.cal,
+  })
 })
 app.set("views", [
   path.join(__dirname, "views"),
