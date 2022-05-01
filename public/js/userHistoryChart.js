@@ -1,9 +1,15 @@
 import { foodValues } from "./charts.js"
+console.log(foodValues)
 
 console.log("i amm history")
 const addDataBtn = document.querySelector("#addDataBtn")
 console.log(addDataBtn)
-
+const userData = document.querySelector("#userData")
+console.log(userData.value)
+const allData = {
+  foodValues: foodValues,
+  user: userData.value,
+}
 const CHART_COLORS = {
   red: "rgb(255, 99, 132)",
   orange: "rgb(255, 159, 64)",
@@ -112,21 +118,20 @@ function months(config) {
 
   return values
 }
-
-async function updateUserHistory(foodValues) {
-  console.log(foodValues)
-  const option = {
+// / imp: writing api code
+async function sendUserData() {
+  const options = {
     method: "POST",
-    body: JSON.stringify(foodValues),
     headers: {
       "Content-Type": "application/json",
       // 'Content-Type': 'application/x-www-form-urlencoded',
     },
+    body: JSON.stringify(allData),
   }
 
-  const gotResponse = await fetch("/api", option)
-  const body = await gotResponse.json()
-  console.log(body)
+  const response = await fetch("/user/api/", options)
+  const data = await response.json()
+  console.log(data)
 }
-//function calling
-updateUserHistory(foodValues)
+
+sendUserData()

@@ -13,8 +13,8 @@ const mongoStore = require("connect-mongo")
 const path = require("path")
 const { roles } = require("./utils/constants")
 
-//initialization
 const app = express()
+//initialization
 const Suggestion = require("./models/suggestion.model")
 
 app.use(express.json())

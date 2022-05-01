@@ -4,11 +4,28 @@ const User = require("../models/user.model")
 
 const { body, validationResult } = require("express-validator")
 const passport = require("passport")
-// / imp: routes below
 
-router.post("/adddata", (req, res) => {})
+router.post("/api", async (req, res, next) => {
+  try {
+    console.log("found request")
+    console.log(req.body)
+    var user = JSON.parse(req.body.user)
+    console.log(req.body.foodValues)
+    console.log(user)
+    // data = req.body
+    // console.log("sending response")
+    // res.json({
+    //   status: "success",
+    //   pro: data.food,
+    //   fat: data.fat,
+    //   cal: data.cal,
+    // })
+  } catch (e) {
+    console.log("error found")
+    console.log(e)
+  }
+})
 
-// / imp: adding new data updatin routes
 router.get("/profile", async (req, res, next) => {
   console.log(req.user)
   const person = req.user

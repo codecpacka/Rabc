@@ -13,9 +13,12 @@
       </div>
 
       <% if (user) { %>
-        <div class="centerbox">
-            <button type="button" id="addDataBtn" class="btn btn-primary">Add Data</button>
-        </div>    
+        <form action="" method="post">
+          <input type="hidden" name="userid" id="userData" value="<%=JSON.stringify(user) %>"  >
+          <div class="centerbox">
+            <button type="submit" id="addDataBtn" class="btn btn-primary">Add Data</button>
+          </div>    
+        </form>
       
         <% } else{ %>  
             
