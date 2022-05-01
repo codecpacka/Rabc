@@ -8,10 +8,19 @@ const passport = require("passport")
 router.post("/api", async (req, res, next) => {
   try {
     console.log("found request")
-    console.log(req.body)
+    // console.log(req.body)
     var user = JSON.parse(req.body.user)
     console.log(req.body.foodValues)
-    console.log(user)
+    console.log(user.email)
+
+    await User.findOneAndUpdate(
+      { email: "tester@gmail.com" },
+      { $push: { "foodConsumed.foodItems": req.body.foodValues } }
+    )
+    const op = await User.find({ email: user.email })
+    console.log(op)
+    console.log("query done")
+    // console.log(user)
     // data = req.body
     // console.log("sending response")
     // res.json({
