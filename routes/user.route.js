@@ -25,7 +25,7 @@ router.post("/api", async (req, res, next) => {
     // console.log(user.email)
 
     await User.findOneAndUpdate(
-      { email: "tester@gmail.com" },
+      { email: user.email },
       { $push: { "foodConsumed.foodItems": req.body.foodValues } }
     )
     const op = await User.find({ email: user.email })

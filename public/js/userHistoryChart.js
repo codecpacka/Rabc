@@ -59,13 +59,13 @@ async function renderUserHistory(userdata) {
         label: "fat",
         data: userdata.foodItems.map((element) => element.fat),
         borderColor: CHART_COLORS.blue,
-        backgroundColor: CHART_COLORS.red,
+        backgroundColor: CHART_COLORS.blue,
       },
       {
         label: "calories",
         data: userdata.foodItems.map((element) => element.cal),
         borderColor: CHART_COLORS.yellow,
-        backgroundColor: CHART_COLORS.red,
+        backgroundColor: CHART_COLORS.yellow,
       },
     ],
   }
@@ -145,9 +145,15 @@ async function sendUserData() {
   const response = await fetch("/user/api/", options)
   data = await response.json()
   console.log(data)
+  // note:  for reloading windows after each data is added
 }
 
-// sendUserData()  note: for getting new data
+// note: for getting new data
+// sendUserData()
+addDataBtn.addEventListener("click", () => {
+  sendUserData()
+  location.reload()
+})
 
 //  imp: for updating new data thnutritionTypeis found
 async function updateUserHistory() {

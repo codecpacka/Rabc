@@ -134,7 +134,8 @@ app.use(
 //listening to a port value defined in .env file or by default 3000
 
 mongoose
-  .connect("mongodb://localhost:27017/rbac_tutorial", {
+  // .connect("mongodb://localhost:27017/rbac_tutorial", { //note: previoud db
+  .connect("mongodb://localhost:27017/Chronica", {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
