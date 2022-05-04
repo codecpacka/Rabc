@@ -6,6 +6,7 @@ const mongoose = require("mongoose")
 const { body, validationResult } = require("express-validator")
 const passport = require("passport")
 const { roles } = require("../utils/constants")
+const connctEnsure = require("connect-ensure-login")
 
 router.get("/users", async (req, res, next) => {
   try {
@@ -82,7 +83,7 @@ router.get("/dashboard", async (req, res, next) => {
   info = {
     userCount: userCount,
     doctorCount: doctorCount,
-    suggestions: suggestions,
+    // suggestions: suggestions,
     suggestionCount: suggestionCount,
   }
   res.render("admin.ejs", { info })
@@ -119,5 +120,9 @@ router.post(
     res.send(req.body)
   }
 )
+router.get("/logout", async (req, res, next) => {
+  req.logout()
+  res.redirect("/")
+})
 
 module.exports = router

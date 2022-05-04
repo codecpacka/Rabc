@@ -19,18 +19,18 @@ const Suggestion = require("./models/suggestion.model")
 
 app.use(express.json())
 // note: the above line should always be first
-app.post("/api", (request, response) => {
-  console.log("inside post request")
-  console.log(request.body)
-  let data = request.body
-  const suggestion = new Suggestion({ suggestion: "hi", type: "error" })
-  suggestion.save()
-  response.json({
-    status: "succes",
-    foodName: data.foodName,
-    cal: data.cal,
-  })
-})
+// app.post("/api", (request, response) => {
+//   console.log("inside post request")
+//   console.log(request.body)
+//   let data = request.body
+//   const suggestion = new Suggestion({ suggestion: "hi", type: "error" })
+//   suggestion.save()
+//   response.json({
+//     status: "succes",
+//     foodName: data.foodName,
+//     cal: data.cal,
+//   })
+// })
 app.set("views", [
   path.join(__dirname, "views"),
   path.join(__dirname, "views/doctor"),
@@ -134,8 +134,7 @@ app.use(
 //listening to a port value defined in .env file or by default 3000
 
 mongoose
-  // .connect("mongodb://localhost:27017/rbac_tutorial", { //note: previoud db
-  .connect("mongodb://localhost:27017/Chronica", {
+  .connect("mongodb://localhost:27017/rbac_tutorial", {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
