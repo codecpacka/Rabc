@@ -124,5 +124,49 @@ router.get("/logout", async (req, res, next) => {
   req.logout()
   res.redirect("/")
 })
+// getting all users data
+router.get("/adduser", async (req, res, next) => {
+  const allUsers = await User.find()
+  userRegLink = "/auth/signup/"
+  res.render("allUsers.ejs", { allUsers, userRegLink })
+  // res.send(allUsers)
+})
+//for viewing user profile
+
+//note:  for deleting user profile
+router.post("/deleteuser", async (req, res, next) => {
+  try {
+    const { _id } = req.body
+    console.log(_id)
+    await User.findByIdAndDelete(_id)
+    req.flash("error", "id updated Succesfully")
+    return res.redirect("/admin/adduser") //returing back to page
+  } catch (error) {
+    console.log("unable to delete")
+    console.log(error)
+  }
+})
+
+router.get("/adddoctor", async (req, res, next) => {
+  const allUsers = await Doctor.find()
+  userRegLink = "/doctor/signup"
+  res.render("allUsers.ejs", { allUsers, userRegLink })
+  // res.send(allUsers)
+})
+//for viewing user profile
+
+//note:  for deleting user profile
+router.post("/deleteuser", async (req, res, next) => {
+  try {
+    const { _id } = req.body
+    console.log(_id)
+    await User.findByIdAndDelete(_id)
+    req.flash("error", "id updated Succesfully")
+    return res.redirect("/admin/adduser") //returing back to page
+  } catch (error) {
+    console.log("unable to delete")
+    console.log(error)
+  }
+})
 
 module.exports = router
