@@ -31,23 +31,33 @@
                    <th scope="col">Id</th>
                    <th scope="col">Username</th>
                    <th scope="col">email</th>
-                   <th scope="col">email</th>
+                   <th scope="col"></th>
+                   <th scope="col"></th>
                  </tr>
                </thead>
                <tbody>
                  <% for(var i=0; i < allUsers.length; i++) { %>
-               
+            
 
                      <tr>
                          <th scope="row"><%= i+1 %> </th>
                          <td><%= allUsers[i]._id %> </td>
                          <td><%= allUsers[i].username %> </td>
                          <td> <%= allUsers[i].email %> </td>
+                         <% if(allUsers[i].status==="PENDING"){ %>
+                           <form action="/admin/approvedoctor" method="post">
+                            <input type="hidden" name="_id" value="<%= allUsers[i]._id %>">
+                           <td><button type="submit" class="btn btn-info">Approve</button></td>
+                           </form>
+                          <% } else{ %>  
+                            <td></td>
+                         <% } %>
+                        
                          <td>
                             <form action="/admin/deleteuser" method="post">
                                 <input type="hidden" name="_id" value="<%= allUsers[i]._id %>">
                         
-                            <button type="submit" class="btn btn-danger">Delete <i  class="bi bi-trash3-fill"></i></button> </td>
+                            <button type="submit" class="btn btn-danger"><i  class="bi bi-trash3-fill"></i></button> </td>
                          
                         </form>
                         </tr>

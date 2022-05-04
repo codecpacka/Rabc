@@ -168,5 +168,19 @@ router.post("/deleteuser", async (req, res, next) => {
     console.log(error)
   }
 })
+router.post("/approvedoctor", async (req, res, next) => {
+  try {
+    const { _id } = req.body
+    console.log(_id)
+    const doctor = await Doctor.findByIdAndUpdate(_id, {
+      $set: { status: "APPROVED" },
+    })
+    req.flash("succes", "update Succesfull")
+    res.redirect("/admin/approvedoctor")
+  } catch (error) {
+    console.log("unable to approve")
+    console.log(error)
+  }
+})
 
 module.exports = router
