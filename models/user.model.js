@@ -32,6 +32,10 @@ const UserSchema = new mongoose.Schema({
     enum: [roles.admin, roles.moderator, roles.client],
     default: roles.client,
   },
+  createdAt: {
+    type: Date,
+    default: () => new Date(),
+  },
   foodConsumed: {
     date: {
       type: String,

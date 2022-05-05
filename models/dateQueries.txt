@@ -1,0 +1,34 @@
+db.users.aggregate(
+   [
+     {
+       $project: {
+          yearMonthDayUTC: { $dateToString: { format: "%Y-%m-%d", date: "$createdAt" } },
+          day: { $dateToString: { format: "%d", date: "$createdAt" } },
+       }
+     }
+   ]
+)
+//for finding date
+db.users.find({
+    createdAt: {
+        $gte: ISODate("2010-04-29T00:00:00.000Z"),
+    }
+})
+
+//for all dates
+db.users.aggregate(
+   [
+     {
+       $project: {
+          yearMonthDayUTC: { $dateToString: { format: "%Y-%m-%d", date: "$createdAt" } },
+          date
+          timewithOffsetNY: { $dateToString: { format: "%H:%M:%S:%L%z", date: "createdAt", timezone: "America/New_York"} },
+          timewithOffset430: { $dateToString: { format: "%H:%M:%S:%L%z", date: "$createdAt", timezone: "+04:30" } },
+          minutesOffsetNY: { $dateToString: { format: "%Z", date: "$createdAt", timezone: "America/New_York" } },
+          minutesOffset430: { $dateToString: { format: "%Z", date: "$createdAt", timezone: "+04:30" } }
+       }
+     }
+   ]
+)
+
+
