@@ -5,6 +5,7 @@ const DATA_COUNT = 3
 const NUMBER_CFG = { count: DATA_COUNT, min: 0, max: 100 }
 
 const searchbox = document.querySelector("#floating-input")
+const addDataBtn = document.querySelector("#addDataBtn")
 
 const searchBtn = document.querySelector("#search-btn")
 let template = document.querySelector("#list-item-template")
@@ -88,6 +89,7 @@ async function getApiData(foodItem) {
         console.log(element.display)
         renderList(element.display)
       })
+      addDataBtn.disabled = false
       test()
     } else {
       console.log("unable to get data")
@@ -131,4 +133,9 @@ function test() {
     })
   })
 }
+
+//clearing input
+searchbox.addEventListener("click", (e) => {
+  e.target.value = ""
+})
 // / imp: exported variables

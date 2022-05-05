@@ -2,7 +2,7 @@ import { foodValues } from "./charts.js"
 console.log(foodValues)
 var data
 console.log("i amm history")
-const addDataBtn = document.querySelector("#addDataBtn")
+// const addDataBtn = document.querySelector("#addDataBtn") // modified
 console.log(addDataBtn)
 const userData = document.querySelector("#userData")
 console.log(userData.value)

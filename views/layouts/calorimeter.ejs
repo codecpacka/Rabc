@@ -16,7 +16,7 @@
         
           <input type="hidden" name="userid" id="userData" value="<%=JSON.stringify(user) %>"  >
           <div class="centerbox">
-            <button type="submit" id="addDataBtn" class="btn btn-primary">Add Data</button>
+            <button type="submit" id="addDataBtn" class="btn btn-primary" disabled>Add Data</button>
           </div>    
        
       
@@ -29,7 +29,7 @@
       <div class="rightbox">
           <div class="row">
         <div class="form-floating col-8">
-          <input type="text" name="searchbox" value="Search...." class="form-control searchBox " id="floating-input" placeholder="name@example.com">
+          <input type="text" name="searchbox" value="Search...." class="form-control searchBox " id="floating-input" placeholder="Enter Food Item name">
           <label for="floatingInput " class="">Food Name</label>
         </div>
         <div class="col-4">
