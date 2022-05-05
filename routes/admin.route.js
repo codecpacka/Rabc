@@ -74,17 +74,20 @@ router.get("/dashboard", async (req, res, next) => {
   console.log(req.admin)
   const userCount = await User.find({ role: "CLIENT" }).count()
   const doctorCount = await Doctor.find({ role: "DOCTOR" }).count()
+  const pendingCount = await Doctor.find({ status: "PENDING" }).count()
   const suggestionCount = await Suggestion.find().count()
 
   console.log(`total number of users are ${userCount}`)
   console.log(`total number of Doctor are ${doctorCount}`)
   console.log(`total number of Suggestions are ${suggestionCount}`)
+  console.log(`total number of Suggestions are ${pendingCount}`)
 
   info = {
     userCount: userCount,
     doctorCount: doctorCount,
     // suggestions: suggestions,
     suggestionCount: suggestionCount,
+    pendingCount: pendingCount,
   }
   res.render("admin.ejs", { info })
 })
@@ -175,8 +178,8 @@ router.post("/approvedoctor", async (req, res, next) => {
     const doctor = await Doctor.findByIdAndUpdate(_id, {
       $set: { status: "APPROVED" },
     })
-    req.flash("succes", "update Succesfull")
-    res.redirect("/admin/approvedoctor")
+    req.flash("success", "update Succesfull")
+    return res.redirect("/admin/approvedoctor")
   } catch (error) {
     console.log("unable to approve")
     console.log(error)
