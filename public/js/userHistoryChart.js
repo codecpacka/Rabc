@@ -42,9 +42,21 @@ const NUMBER_CFG = { count: DATA_COUNT, min: -100, max: 100 }
 async function renderUserHistory(userdata) {
   console.log(userdata.foodItems.length)
   const DATE_COUNT = userdata.foodItems.length
-  const labels = ["day"]
+  const labels = ["date"]
+  // imp: original
+  // for (let i = 1; i < DATE_COUNT; ++i) {
+  //   labels.push(i.toString())
+  // }
   for (let i = 1; i < DATE_COUNT; ++i) {
-    labels.push(i.toString())
+    // labels.push(userdata.createdAt.getDate())
+    var daydate = new Date(userdata.date)
+    console.log(typeof daydate)
+    console.log(
+      `${daydate.getDate()}-${daydate.getMonth()}-${daydate.getFullYear()} `
+    )
+    let foodConsumedDate = `${daydate.getDate()}-${daydate.getMonth()}-${daydate.getFullYear()}`
+
+    labels.push(foodConsumedDate)
   }
   const userHistorydata = {
     labels: labels,

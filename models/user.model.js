@@ -37,9 +37,13 @@ const UserSchema = new mongoose.Schema({
     default: () => new Date(),
   },
   foodConsumed: {
+    // date: {
+    //   type: String,
+    //   default: "no date ",
+    // },
     date: {
-      type: String,
-      default: "no date ",
+      type: Date,
+      default: () => new Date(),
     },
     foodItems: [itemsSchema],
   },
