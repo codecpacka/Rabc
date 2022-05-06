@@ -31,7 +31,6 @@ const DoctorSchema = new mongoose.Schema({
     default: status.pending,
   },
   subscribers: [{
-
     type: mongoose.SchemaTypes.ObjectId,
     ref: "User",
   }],

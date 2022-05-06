@@ -7,13 +7,22 @@ async function testData() {
     try {
 
         console.log("ping............................");
-        const userdata = await Doctor.find({ email: "approved@gmail.com" }).populate("subscribers.sub")
-        console.log(userdata);
+        await Doctor.find({ email: "approved@gmail.com" }).populate('subscribers').exec(function (err, doctor) {
+            try {
+
+                if (err) return handleError(err);
+                console.log('The author is %s', doctor.email);
+            } catch (e) {
+                console.log("error foung");
+                console.log(e.message);
+            }
+        });
+
         // userdata.subscribers = "62746178a94f423d0fa315f3";
         // userdata[0].subscribers = "62746178a94f423d0fa315f3"
-        await userdata[0].save();
-        console.log(userdata);
-        console.log("ping............................");
+
+
+
     } catch (error) {
         console.log("error");
         console.log(error.message);
