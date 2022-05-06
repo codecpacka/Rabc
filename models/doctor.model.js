@@ -1,7 +1,9 @@
 const mongoose = require("mongoose")
+const User = require("../models/user.model")
 const bcrypt = require("bcrypt")
 const { roles, status } = require("../utils/constants") //importing roles
 const createHttpError = require("http-errors")
+const run = require("nodemon/lib/monitor/run")
 const DoctorSchema = new mongoose.Schema({
   username: {
     type: String,
@@ -28,7 +30,14 @@ const DoctorSchema = new mongoose.Schema({
     enum: [status.pending, status.doctor],
     default: status.pending,
   },
+  subscribers: [{
+
+    type: mongoose.SchemaTypes.ObjectId,
+    ref: "User",
+  }],
 })
+
+
 //this runs whenever someone saves a document
 DoctorSchema.pre("save", async function (next) {
   try {

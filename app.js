@@ -69,7 +69,7 @@ app.use(
 //for passport js authenticaton
 app.use(passport.initialize())
 app.use(passport.session())
-require("./utils/passport.auth") //simple auth //note: ucomeent original
+// require("./utils/passport.auth") //simple auth //note: ucomeent original
 require("./utils/passportDoctor.auth") //including doctor passport authentication
 require("./utils/passportAdmin.auth") //including doctor passport authentication
 

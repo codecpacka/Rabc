@@ -98,7 +98,8 @@ router.get("/dashboard", (req, res, next) => {
   console.log("printing dashboard data")
   console.log(req.user)
   console.log(req.doctor)
-  res.render("doctor.ejs")
+  doctor = req.user;
+  res.render("doctor.ejs", { doctor })
 })
 //changePassword
 router.get("/changePassword", (req, res, next) => {
@@ -109,6 +110,27 @@ router.get("/logout", async (req, res, next) => {
   req.logout()
   res.redirect("/")
 })
+
+router.get("/viewsubscriber", async (req, res, next) => {
+  try {
+    console.log("below");
+    // console.log(res.locals.user);
+    const { _id } = res.locals.user
+    console.log(_id)
+    const allSubs = await Doctor.findById(_id)
+    console.log(allSubs);
+    userRegLink = "/doctor/signup"
+    // res.render("allUsers.ejs", { allSubs, userRegLink })
+    res.send(allSubs)
+  } catch (error) {
+    console.log("unable to approve")
+    console.log(error)
+  }
+})
+
+
+
+
 module.exports = router
 function ensureNOTAuthenticated(req, res, next) {
   if (req.isAuthenticated()) {
